@@ -4,7 +4,7 @@
 ## AWS config
 ###############################
 aws_region="us-east-1"
-cmk_key_arn="arn:aws:kms:us-east-1:871794273757:key/fb71a505-f856-411a-9bff-7aba7d8e34bf"
+cmk_key_arn="arn:aws:kms:us-east-1:871794273757:key/09276167-1b21-4420-8b32-9fe77c58f6bd"
 
 
 ###############################
