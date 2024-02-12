@@ -1,22 +1,25 @@
 #!/bin/bash
 
-<< comment 
-This script is going to encrypt the aws log group of AWS CloudWatch
-comment
+############################
+## Define AWS region & conf.
+############################
 
-# Define AWS region
 aws_region="us-east-1"
-cmk_key="ebe49f2c-d801-4ab5-93e2-853e381d2523"
+cmk_key="arn:aws:kms:us-east-1:871794273757:key/09276167-1b21-4420-8b32-9fe77c58f6bd"
 
-# List CloudWatch log groups
+############################
+## List CloudWatch log groups
+############################
+
 list_log_groups() {
     echo "The following CloudWatch log groups will be encrypted using CMK Keyz:"
     aws logs describe-log-groups --region $aws_region --query 'logGroups[?kmsKeyId==`null`].logGroupName' --output table
 
 }
 
-
-
+############################
+## Resource Policy
+############################
 cat << EOF > resource-policy.json
 {
   "Version": "2012-10-17",
@@ -38,8 +41,10 @@ cat << EOF > resource-policy.json
   ]
 }
 EOF
+############################
+## Encrypt CloudWatch log groups
+############################
 
-# Encrypt CloudWatch log groups
 encrypt_log_groups() {
     echo "Encrypting CloudWatch log groups..."
     # Loop through each log group and encrypt
